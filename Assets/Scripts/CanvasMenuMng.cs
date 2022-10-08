@@ -44,7 +44,7 @@ public class CanvasMenuMng : MonoBehaviour
         if(realtyNow != null)
         {
             OpenPannel(2);
-            pnlListRoom.Init(realtyNow.idImovel);
+            pnlListRoom.Init(realtyNow.idImovel, realtyNow.nome);
         }
         
     }
