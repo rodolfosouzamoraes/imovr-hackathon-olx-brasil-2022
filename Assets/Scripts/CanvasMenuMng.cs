@@ -15,6 +15,7 @@ public class CanvasMenuMng : MonoBehaviour
         }
         Destroy(this);
     }
+    public PnlListRoomCtlr pnlListRoom;
     public GameObject[] pannelsMenu;
 
     public int indexSceneVR = 1;
@@ -31,9 +32,10 @@ public class CanvasMenuMng : MonoBehaviour
     {
         OpenPannel(1);
     }
-    public void ShowPannelListRoom()
+    public void ShowPannelListRoom(string idRealty)
     {
         OpenPannel(2);
+        pnlListRoom.Init(idRealty);
     }
 
     private void OpenPannel(int index)

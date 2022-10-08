@@ -60,4 +60,30 @@ public class DatabaseManager : MonoBehaviour
             onCallback.Invoke(listRealty);
         }
     }
+
+    public IEnumerator GetRoomList(Action<List<Comodo>> onCallback, string idRealty)
+    {
+        List<Comodo> listRoom = new List<Comodo>();
+        var usersData = dbReference.Child("comodos").Child(idRealty).GetValueAsync();
+        yield return new WaitUntil(predicate: () => usersData.IsCompleted);
+        if (usersData != null)
+        {
+            DataSnapshot snapshot = usersData.Result;
+            foreach (DataSnapshot nodeData1 in snapshot.Children)
+            {
+                string idRoom = nodeData1.Key;
+                Comodo reatly = new Comodo(
+                    idRealty,
+                    idRoom,
+                    nodeData1.Child("nome").Value.ToString(),
+                    nodeData1.Child("foto").Value.ToString(),
+                    nodeData1.Child("foto360").Value.ToString(),
+                    nodeData1.Child("dimensao").Value.ToString()
+                );
+                listRoom.Add(reatly);
+
+            }
+            onCallback.Invoke(listRoom);
+        }
+    }
 }

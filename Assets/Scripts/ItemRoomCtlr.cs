@@ -4,26 +4,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
+public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
 {
     public Text txtName;
     public Text txtDescription;
-    public Text txtPrice;
     public Image imgPicture;
 
-    private Imovel realty;
+    public Comodo room;
     public void OnPointerClick(PointerEventData eventData)
     {
-        CanvasMenuMng.Instance.ShowPannelListRoom(realty.idImovel);
+        throw new System.NotImplementedException();
     }
 
-    public void Init(Imovel realtyItem)
+    public void Init(Comodo roomItem)
     {
-        realty = realtyItem;
-        txtName.text = realty.nome;
-        txtDescription.text = realty.descricao;
-        txtPrice.text = "R$"+realty.preco.ToString();
-        StartCoroutine(SetImage(realty.foto));
+        room = roomItem;
+        txtName.text = room.nome;
+        txtDescription.text = room.dimensao;
+        StartCoroutine(SetImage(room.foto));
     }
 
     private IEnumerator SetImage(string url)
@@ -39,15 +37,5 @@ public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
         imgPicture.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
