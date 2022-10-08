@@ -14,7 +14,8 @@ public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
     private Imovel realty;
     public void OnPointerClick(PointerEventData eventData)
     {
-        CanvasMenuMng.Instance.ShowPannelListRoom(realty.idImovel);
+        CanvasMenuMng.Instance.DefineRealty(realty);
+        CanvasMenuMng.Instance.ShowPannelListRoom();
     }
 
     public void Init(Imovel realtyItem)

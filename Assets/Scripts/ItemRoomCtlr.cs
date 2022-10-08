@@ -14,8 +14,8 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
     private Texture2D textureRoom360;
     public void OnPointerClick(PointerEventData eventData)
     {
-        StartCoroutine(CreateImageRoom360(room.foto360, room.larguraFoto360, room.alturaFoto360));
-
+        StartCoroutine(CreateImageRoom360AndUpdateEnviroment(room.foto360, room.larguraFoto360, room.alturaFoto360));
+        
     }
 
     public void Init(Comodo roomItem)
@@ -39,7 +39,7 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
         imgPicture.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    private IEnumerator CreateImageRoom360(string url, int width, int height)
+    private IEnumerator CreateImageRoom360AndUpdateEnviroment(string url, int width, int height)
     {
         textureRoom360 = new Texture2D(width, height);
 
@@ -50,9 +50,7 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
         www.Dispose();
         www = null;
 
-        GameObjectManagers.roomTexture = textureRoom360;
-        LoadSeneMng.LoadSceneIndex(1);
+        CustomizeSkyboxToRoomCtlr.Instance.UpdateImage360(textureRoom360);
+        CanvasMenuMng.Instance.ShowPannelEnviroment();
     }
-
-
 }

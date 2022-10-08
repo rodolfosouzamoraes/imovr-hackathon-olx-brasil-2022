@@ -19,6 +19,8 @@ public class CanvasMenuMng : MonoBehaviour
     public GameObject[] pannelsMenu;
 
     public int indexSceneVR = 1;
+
+    private Imovel realtyNow;
     public void ShowSceneVR()
     {
         LoadSeneMng.LoadSceneIndex(indexSceneVR);
@@ -32,10 +34,23 @@ public class CanvasMenuMng : MonoBehaviour
     {
         OpenPannel(1);
     }
-    public void ShowPannelListRoom(string idRealty)
+    public void DefineRealty(Imovel realty)
     {
-        OpenPannel(2);
-        pnlListRoom.Init(idRealty);
+        realtyNow = realty;
+    }
+
+    public void ShowPannelListRoom()
+    {
+        if(realtyNow != null)
+        {
+            OpenPannel(2);
+            pnlListRoom.Init(realtyNow.idImovel);
+        }
+        
+    }
+    public void ShowPannelEnviroment()
+    {
+        OpenPannel(3);
     }
 
     private void OpenPannel(int index)

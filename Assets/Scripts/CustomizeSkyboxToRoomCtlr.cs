@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class CustomizeSkyboxToRoomCtlr : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static CustomizeSkyboxToRoomCtlr Instance;
+    private void Awake()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        renderer.material.SetTexture("_MainTex", GameObjectManagers.roomTexture);
+        if(Instance == null)
+        {
+            Instance = this;
+            return;
+        }
+        Destroy(gameObject);
     }
-
-    // Update is called once per frame
-    void Update()
+    public Renderer renderer;
+    public void UpdateImage360(Texture2D roomTexture)
     {
-        
+        renderer.material.SetTexture("_MainTex", roomTexture);
     }
 }
