@@ -11,20 +11,22 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
     public Image imgPicture;
 
     public Comodo room;
+    private Texture2D textureRoom360;
     public void OnPointerClick(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(CreateImageRoom360(room.foto360, room.larguraFoto360, room.alturaFoto360));
+
     }
 
     public void Init(Comodo roomItem)
     {
         room = roomItem;
         txtName.text = room.nome;
-        txtDescription.text = room.dimensao;
-        StartCoroutine(SetImage(room.foto));
+        txtDescription.text = room.descricao;
+        StartCoroutine(SetImageRoom(room.foto));
     }
 
-    private IEnumerator SetImage(string url)
+    private IEnumerator SetImageRoom(string url)
     {
         Texture2D texture = new Texture2D(370, 370);
 
@@ -35,6 +37,21 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
         www.Dispose();
         www = null;
         imgPicture.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    }
+
+    private IEnumerator CreateImageRoom360(string url, int width, int height)
+    {
+        textureRoom360 = new Texture2D(width, height);
+
+        WWW www = new WWW(url);
+        yield return www;
+
+        www.LoadImageIntoTexture(textureRoom360);
+        www.Dispose();
+        www = null;
+
+        GameObjectManagers.roomTexture = textureRoom360;
+        LoadSeneMng.LoadSceneIndex(1);
     }
 
 

@@ -78,7 +78,9 @@ public class DatabaseManager : MonoBehaviour
                     nodeData1.Child("nome").Value.ToString(),
                     nodeData1.Child("foto").Value.ToString(),
                     nodeData1.Child("foto360").Value.ToString(),
-                    nodeData1.Child("dimensao").Value.ToString()
+                    nodeData1.Child("descricao").Value.ToString(),
+                    int.Parse(nodeData1.Child("largura360").Value.ToString()),
+                    int.Parse(nodeData1.Child("altura360").Value.ToString())
                 );
                 listRoom.Add(reatly);
 
