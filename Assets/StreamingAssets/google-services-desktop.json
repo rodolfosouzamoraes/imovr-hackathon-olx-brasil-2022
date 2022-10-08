@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "182535848849",
+    "firebase_url": "https://imovr-80be8-default-rtdb.firebaseio.com",
+    "project_id": "imovr-80be8",
+    "storage_bucket": "imovr-80be8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182535848849:android:947ebdcbfe064522275030",
+        "android_client_info": {
+          "package_name": "com.WIRESHARK.imoVR"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182535848849-nks307nf491eta6poo6ipmjdr40fcp77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD--BWO25NrXfVd4VJnQXmYL3FjbUA4-4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182535848849-nks307nf491eta6poo6ipmjdr40fcp77.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
