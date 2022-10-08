@@ -8,7 +8,7 @@ public class Imovel
     public string idUsuario;
     public string idImovel;
     public string descricao;
-    public Uri foto;
+    public string foto;
     public string nome;
     public double preco;
 
@@ -23,7 +23,7 @@ public class Imovel
         idImovel = idReatly;
         nome = name;
         descricao = description;
-        foto = new Uri(urlPicture);
+        foto = urlPicture;
         preco = price;
     }
 }

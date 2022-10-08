@@ -1,11 +1,21 @@
 using Firebase.Database;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DatabaseManager : MonoBehaviour
 {
-    public List<Imovel> listRealty = new List<Imovel>();
+    public static DatabaseManager Instance;
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            return;
+        }
+        Destroy(this);
+    }
     private DatabaseReference dbReference;
     void Start()
     {
@@ -21,9 +31,9 @@ public class DatabaseManager : MonoBehaviour
         dbReference.Child("usuarios").Child(userID).SetRawJsonValueAsync(json);
     }*/
 
-    public IEnumerator GetRealty()
+    public IEnumerator GetRealtyList(Action<List<Imovel>> onCallback)
     {
-        listRealty.Clear();
+        List<Imovel> listRealty = new List<Imovel>();
         var usersData = dbReference.Child("imoveis").GetValueAsync();
         yield return new WaitUntil(predicate: () => usersData.IsCompleted);
         if (usersData != null)
@@ -47,6 +57,7 @@ public class DatabaseManager : MonoBehaviour
                 }
                 
             }
+            onCallback.Invoke(listRealty);
         }
     }
 }

@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class PnlListRealtyCtlr : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject goItemRealty;
+    public Transform transformContentRealty;
+    public List<GameObject> realtyItems;
+    private List<Imovel> listRealtyDB = new List<Imovel>();
+    private void OnEnable()
     {
+        
+        StartCoroutine(DatabaseManager.Instance.GetRealtyList((List<Imovel> listRealty) =>
+        {
+            listRealtyDB = new List<Imovel>(listRealty);
+            ClearItensInContent();
+            foreach (Imovel imovel in listRealtyDB)
+            {
+                GameObject goItem = Instantiate(goItemRealty, transformContentRealty);
+                ItemRealtyCtlr itemRealty = goItem.GetComponent<ItemRealtyCtlr>();
+                itemRealty.Init(imovel);
+                realtyItems.Add(goItem);
+            }
+        }));
+
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ClearItensInContent()
     {
-        
+        foreach(GameObject item in realtyItems)
+        {
+            Destroy(item);
+        }
+        realtyItems.Clear();
     }
 }
