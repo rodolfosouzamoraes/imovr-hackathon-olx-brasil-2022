@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public class PnlListRoomCtlr : MonoBehaviour
         {
             listRoomDB = new List<Comodo>(listRoom);
             ClearItensInContent();
-            StartCoroutine(InsertRealtysInList());
+            Task taskRoom = InsertRealtysInList();
         }, idRealty));
     }
     private void ClearItensInContent()
@@ -29,7 +30,7 @@ public class PnlListRoomCtlr : MonoBehaviour
         }
         roomItems.Clear();
     }
-    public IEnumerator InsertRealtysInList()
+    public async Task InsertRealtysInList()
     {
         foreach (Comodo room in listRoomDB)
         {
@@ -37,7 +38,7 @@ public class PnlListRoomCtlr : MonoBehaviour
             ItemRoomCtlr itemRealty = goItem.GetComponent<ItemRoomCtlr>();
             itemRealty.Init(room);
             roomItems.Add(goItem);
-            yield return new WaitForSeconds(0.3f);
+            await Task.Delay(300);
         }
     }
 

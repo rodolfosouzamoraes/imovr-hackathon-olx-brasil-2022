@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,11 +17,11 @@ public class PnlListRealtyCtlr : MonoBehaviour
         StartCoroutine(DatabaseManager.Instance.GetRealtyList((List<Imovel> listRealty) =>
         {
             listRealtyDB = new List<Imovel>(listRealty);
-            StartCoroutine(InsertRealtysInList());
+            Task taskRealty = InsertRealtysInList();
         }));
     }
 
-    public IEnumerator InsertRealtysInList()
+    public async Task InsertRealtysInList()
     {
         ClearItensInContent();
         foreach (Imovel imovel in listRealtyDB)
@@ -41,15 +42,16 @@ public class PnlListRealtyCtlr : MonoBehaviour
             {
                 Destroy(goItem);
             }
-            yield return new WaitForSeconds(0.3f);
+            await Task.Delay(300);
         }
+        await Task.Yield();
     }
     public void SearchRealty()
     {
         if (txtInputSearch.text != "")
         {
             isSearch = true;
-            StartCoroutine(InsertRealtysInList());
+            InsertRealtysInList();
         }
     }
 
@@ -58,7 +60,7 @@ public class PnlListRealtyCtlr : MonoBehaviour
         if(txtInputSearch.text == "" && isSearch == true)
         {
             isSearch = false;
-            StartCoroutine(InsertRealtysInList());
+            InsertRealtysInList();
         }
     }
     private void ClearItensInContent()

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,6 +12,7 @@ public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
     public Text txtDescription;
     public Text txtPrice;
     public Image imgPicture;
+    public Sprite sptError;
 
     private Imovel realty;
     public void OnPointerClick(PointerEventData eventData)
@@ -24,20 +27,37 @@ public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
         txtName.text = realty.nome;
         txtDescription.text = realty.descricao;
         txtPrice.text = "R$"+realty.preco.ToString();
-        StartCoroutine(SetImage(realty.foto));
+        Task t = SetImage(realty.foto);
     }
 
-    private IEnumerator SetImage(string url)
+    private async Task SetImage(string url)
     {
         Texture2D texture = new Texture2D(370, 370);
-
-        WWW www = new WWW(url);
-        yield return www;
-
-        www.LoadImageIntoTexture(texture);
-        www.Dispose();
-        www = null;
-        imgPicture.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        try
+        {
+            WWW www = new WWW(url);
+            while (www.progress != 1)
+            {
+                await Task.Yield();
+            }
+            if (www.isDone)
+            {
+                www.LoadImageIntoTexture(texture);
+                imgPicture.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            }
+            else
+            {
+                imgPicture.sprite = sptError;
+            }
+            www.Dispose();
+            www = null;
+        }
+        catch(Exception e)
+        {
+            Debug.Log($"ERROR:{e}");
+            imgPicture.sprite = sptError;
+        }
+        
     }
 
     // Start is called before the first frame update
