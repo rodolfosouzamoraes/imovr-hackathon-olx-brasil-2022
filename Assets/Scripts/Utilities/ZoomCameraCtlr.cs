@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Classe responsável por aplicar Zoom in e Out na camera.
+/// </summary>
 public class ZoomCameraCtlr : MonoBehaviour
 {
     public int cameraFieldOrigin = 60;

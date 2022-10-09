@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+/// <summary>
+/// Classe responsável por parametrizar os itens que aparecem na lista cômodos
+/// </summary>
 public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
 {
     public Text txtName;
@@ -13,22 +14,19 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
     public Image imgPicture;
     public Sprite sptError;
 
-    public Comodo room;
+    public Room room;
     private Texture2D textureRoom360;
     public void OnPointerClick(PointerEventData eventData)
     {
-        StartCoroutine(CreateImageRoom360AndUpdateEnviroment(room.foto360, room.larguraFoto360, room.alturaFoto360));
-        
+        StartCoroutine(CreateImageRoom360AndUpdateEnviroment(room.urlPicture360, room.widthPicture360, room.heightPicture360));
     }
-
-    public void Init(Comodo roomItem)
+    public void Init(Room roomItem)
     {
         room = roomItem;
-        txtName.text = room.nome;
-        txtDescription.text = room.descricao;
-        Task t = SetImageRoom(room.foto);
+        txtName.text = room.name;
+        txtDescription.text = room.description;
+        Task t = SetImageRoom(room.urlPicture);
     }
-
     private async Task SetImageRoom(string url)
     {
         try
@@ -55,10 +53,8 @@ public class ItemRoomCtlr : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log($"ERROR:{e}");
             imgPicture.sprite = sptError;
-        }
-        
+        } 
     }
-
     private IEnumerator CreateImageRoom360AndUpdateEnviroment(string url, int width, int height)
     {
         textureRoom360 = new Texture2D(width, height);

@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
+/// <summary>
+/// Classe responsável por customizar a material que recebe a imagem em 360.
+/// </summary>
 public class CustomizeSkyboxToRoomCtlr : MonoBehaviour
 {
     public static CustomizeSkyboxToRoomCtlr Instance;

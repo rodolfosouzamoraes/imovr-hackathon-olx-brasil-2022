@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Classe responsável por controlar o giroscópio do celular.
+/// </summary>
 public class GyroscopeCtlr : MonoBehaviour
 {
     private bool gyroscopeEnabled;
     private Gyroscope gyroscope;
-
     private GameObject cameraContainer;
     private Quaternion rotation;
 
@@ -16,14 +15,12 @@ public class GyroscopeCtlr : MonoBehaviour
 
         gyroscopeEnabled = EnableGyroscope();
     }
-
     private void CreateGameObjectCameraContainer()
     {
         cameraContainer = new GameObject("Camera Container");
         cameraContainer.transform.position = transform.position;
         transform.SetParent(cameraContainer.transform);
     }
-
     private bool EnableGyroscope()
     {
         if (SystemInfo.supportsGyroscope)
@@ -38,7 +35,6 @@ public class GyroscopeCtlr : MonoBehaviour
         }
         return false;
     }
-
     private void Update()
     {
         if (gyroscopeEnabled)

@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Classe responsável por gerenciar o Canvas do Menu
+/// </summary>
 public class CanvasMenuMng : MonoBehaviour
 {
     public static CanvasMenuMng Instance;
@@ -15,16 +15,12 @@ public class CanvasMenuMng : MonoBehaviour
         }
         Destroy(this);
     }
+
     public PnlListRoomCtlr pnlListRoom;
     public GameObject[] pannelsMenu;
-
     public int indexSceneVR = 1;
 
-    private Imovel realtyNow;
-    public void ShowSceneVR()
-    {
-        LoadSeneMng.LoadSceneIndex(indexSceneVR);
-    }
+    private Realty realtyNow;
 
     public void ShowPannelMenu()
     {
@@ -34,17 +30,20 @@ public class CanvasMenuMng : MonoBehaviour
     {
         OpenPannel(1);
     }
-    public void DefineRealty(Imovel realty)
+    /// <summary>
+    /// Define qual imóvel foi selecionado pelo usuário
+    /// </summary>
+    /// <param name="realty">O imóvel</param>
+    public void DefineRealty(Realty realty)
     {
         realtyNow = realty;
     }
-
     public void ShowPannelListRoom()
     {
         if(realtyNow != null)
         {
             OpenPannel(2);
-            pnlListRoom.Init(realtyNow.idImovel, realtyNow.nome);
+            pnlListRoom.Init(realtyNow.idRealty, realtyNow.name);
         }
         
     }
@@ -52,7 +51,6 @@ public class CanvasMenuMng : MonoBehaviour
     {
         OpenPannel(3);
     }
-
     private void OpenPannel(int index)
     {
         foreach(var pannel in pannelsMenu)

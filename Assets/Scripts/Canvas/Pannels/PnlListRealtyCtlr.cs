@@ -1,30 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Classe responsável por controlar o painel de imóveis
+/// </summary>
 public class PnlListRealtyCtlr : MonoBehaviour
 {
     public GameObject goItemRealty;
     public Transform transformContentRealty;
     public List<GameObject> realtyItems;
     public InputField txtInputSearch; 
-    private List<Imovel> listRealtyDB = new List<Imovel>();
+    private List<Realty> listRealtyDB = new List<Realty>();
     private bool isSearch = false;
     private void OnEnable()
     {
-        StartCoroutine(DatabaseManager.Instance.GetRealtyList((List<Imovel> listRealty) =>
+        StartCoroutine(DatabaseManager.Instance.GetRealtyList((List<Realty> listRealty) =>
         {
-            listRealtyDB = new List<Imovel>(listRealty);
+            listRealtyDB = new List<Realty>(listRealty);
             Task taskRealty = InsertRealtysInList();
         }));
     }
-
     public async Task InsertRealtysInList()
     {
         ClearItensInContent();
-        foreach (Imovel imovel in listRealtyDB)
+        foreach (Realty imovel in listRealtyDB)
         {
             GameObject goItem = Instantiate(goItemRealty, transformContentRealty);
             ItemRealtyCtlr itemRealty = goItem.GetComponent<ItemRealtyCtlr>();
@@ -33,7 +33,7 @@ public class PnlListRealtyCtlr : MonoBehaviour
                 itemRealty.Init(imovel);
                 realtyItems.Add(goItem);
             }
-            else if (imovel.nome.Contains(txtInputSearch.text))
+            else if (imovel.name.ToLower().Contains(txtInputSearch.text.ToLower()))
             {
                 itemRealty.Init(imovel);
                 realtyItems.Add(goItem);
@@ -54,7 +54,6 @@ public class PnlListRealtyCtlr : MonoBehaviour
             InsertRealtysInList();
         }
     }
-
     public void ChangeInputTextSearch()
     {
         if(txtInputSearch.text == "" && isSearch == true)
@@ -71,7 +70,6 @@ public class PnlListRealtyCtlr : MonoBehaviour
         }
         realtyItems.Clear();
     }
-
     private void OnDisable()
     {
         ClearItensInContent();

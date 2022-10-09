@@ -1,23 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Classe responsável por controlar o painel de cômodos
+/// </summary>
 public class PnlListRoomCtlr : MonoBehaviour
 {
     public GameObject goItemRoom;
     public Transform transformContentRoom;
     public List<GameObject> roomItems;
     public Text txtTitle;
-    private List<Comodo> listRoomDB = new List<Comodo>();
+    private List<Room> listRoomDB = new List<Room>();
 
     public void Init(string idRealty, string name)
     {
         txtTitle.text = name;
-        StartCoroutine(DatabaseManager.Instance.GetRoomList((List<Comodo> listRoom) =>
+        StartCoroutine(DatabaseManager.Instance.GetRoomList((List<Room> listRoom) =>
         {
-            listRoomDB = new List<Comodo>(listRoom);
+            listRoomDB = new List<Room>(listRoom);
             ClearItensInContent();
             Task taskRoom = InsertRealtysInList();
         }, idRealty));
@@ -32,7 +33,7 @@ public class PnlListRoomCtlr : MonoBehaviour
     }
     public async Task InsertRealtysInList()
     {
-        foreach (Comodo room in listRoomDB)
+        foreach (Room room in listRoomDB)
         {
             GameObject goItem = Instantiate(goItemRoom, transformContentRoom);
             ItemRoomCtlr itemRealty = goItem.GetComponent<ItemRoomCtlr>();
@@ -41,7 +42,6 @@ public class PnlListRoomCtlr : MonoBehaviour
             await Task.Delay(300);
         }
     }
-
     private void OnDisable()
     {
         ClearItensInContent();

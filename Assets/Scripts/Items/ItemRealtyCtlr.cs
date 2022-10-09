@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+/// <summary>
+/// Classe responsável por parametrizar os itens que aparecem na lista de imóveis
+/// </summary>
 public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
 {
     public Text txtName;
@@ -14,23 +14,25 @@ public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
     public Image imgPicture;
     public Sprite sptError;
 
-    private Imovel realty;
+    private Realty realty;
     public void OnPointerClick(PointerEventData eventData)
     {
         CanvasMenuMng.Instance.DefineRealty(realty);
         CanvasMenuMng.Instance.ShowPannelListRoom();
     }
-
-    public void Init(Imovel realtyItem)
+    /// <summary>
+    /// Inicializa o item com as informações do imóvel
+    /// </summary>
+    /// <param name="realtyItem"></param>
+    public void Init(Realty realtyItem)
     {
         realty = realtyItem;
-        txtName.text = realty.nome;
-        txtDescription.text = realty.descricao;
-        txtPrice.text = "R$"+realty.preco.ToString();
-        Task t = SetImage(realty.foto);
+        txtName.text = realty.name;
+        txtDescription.text = realty.description;
+        txtPrice.text = "R$"+realty.price.ToString();
+        Task t = SetImageRealty(realty.urlPicture);
     }
-
-    private async Task SetImage(string url)
+    private async Task SetImageRealty(string url)
     {
         Texture2D texture = new Texture2D(370, 370);
         try
@@ -57,18 +59,6 @@ public class ItemRealtyCtlr : MonoBehaviour, IPointerClickHandler
             Debug.Log($"ERROR:{e}");
             imgPicture.sprite = sptError;
         }
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }

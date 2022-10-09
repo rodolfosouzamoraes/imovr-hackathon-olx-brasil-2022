@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Classe responsável por manter a escala dos elementos do canvas conforme outras resoluções
+/// </summary>
 [RequireComponent(typeof(CanvasScaler))]
 public class ScreenAdjust : MonoBehaviour
 {

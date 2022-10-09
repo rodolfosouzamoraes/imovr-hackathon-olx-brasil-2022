@@ -424,7 +424,6 @@ GameObject:
   - component: {fileID: 1192887422}
   - component: {fileID: 1192887421}
   - component: {fileID: 1192887425}
-  - component: {fileID: 1192887426}
   - component: {fileID: 1192887427}
   - component: {fileID: 1192887428}
   m_Layer: 5
@@ -538,18 +537,6 @@ MonoBehaviour:
   - {fileID: 687446663}
   - {fileID: 1776595108}
   indexSceneVR: 1
---- !u!114 &1192887426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192887420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4843956e191c546837f3ab5befec4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1192887427
 MonoBehaviour:
   m_ObjectHideFlags: 0

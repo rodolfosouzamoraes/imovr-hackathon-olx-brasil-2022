@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Classe responsável por gerenciar o banco de dados Firebase
+/// </summary>
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance;
@@ -21,19 +23,9 @@ public class DatabaseManager : MonoBehaviour
     {
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
-
-    /*
-    private void CreateUser(string name, string email)
+    public IEnumerator GetRealtyList(Action<List<Realty>> onCallback)
     {
-        User newUser = new User(name, email);
-        string json = JsonUtility.ToJson(newUser);
-
-        dbReference.Child("usuarios").Child(userID).SetRawJsonValueAsync(json);
-    }*/
-
-    public IEnumerator GetRealtyList(Action<List<Imovel>> onCallback)
-    {
-        List<Imovel> listRealty = new List<Imovel>();
+        List<Realty> listRealty = new List<Realty>();
         var usersData = dbReference.Child("imoveis").GetValueAsync();
         yield return new WaitUntil(predicate: () => usersData.IsCompleted);
         if (usersData != null)
@@ -45,7 +37,7 @@ public class DatabaseManager : MonoBehaviour
                 foreach(DataSnapshot nodeData2 in nodeData1.Children)
                 {
                     string idRealty = nodeData2.Key;
-                    Imovel reatly = new Imovel(
+                    Realty reatly = new Realty(
                         idUser,
                         idRealty,
                         nodeData2.Child("nome").Value.ToString(),
@@ -55,15 +47,13 @@ public class DatabaseManager : MonoBehaviour
                         );
                     listRealty.Add(reatly);
                 }
-                
             }
             onCallback.Invoke(listRealty);
         }
     }
-
-    public IEnumerator GetRoomList(Action<List<Comodo>> onCallback, string idRealty)
+    public IEnumerator GetRoomList(Action<List<Room>> onCallback, string idRealty)
     {
-        List<Comodo> listRoom = new List<Comodo>();
+        List<Room> listRoom = new List<Room>();
         var usersData = dbReference.Child("comodos").Child(idRealty).GetValueAsync();
         yield return new WaitUntil(predicate: () => usersData.IsCompleted);
         if (usersData != null)
@@ -72,7 +62,7 @@ public class DatabaseManager : MonoBehaviour
             foreach (DataSnapshot nodeData1 in snapshot.Children)
             {
                 string idRoom = nodeData1.Key;
-                Comodo reatly = new Comodo(
+                Room reatly = new Room(
                     idRealty,
                     idRoom,
                     nodeData1.Child("nome").Value.ToString(),
