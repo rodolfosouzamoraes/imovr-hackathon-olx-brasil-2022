@@ -260,7 +260,7 @@ MonoBehaviour:
   txtName: {fileID: 2887206702195436369}
   txtDescription: {fileID: 2887206700857221125}
   imgPicture: {fileID: 2887206701001624571}
-  sptError: {fileID: 21300000, guid: 852337007f8e3bf48a2dbd3e12bb17f7, type: 3}
+  sptError: {fileID: 21300000, guid: 977419ffed6538847bc57e2d45164bb1, type: 3}
 --- !u!95 &2220120252562518959
 Animator:
   serializedVersion: 4

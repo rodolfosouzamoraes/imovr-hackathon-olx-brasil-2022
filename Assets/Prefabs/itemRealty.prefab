@@ -311,6 +311,7 @@ MonoBehaviour:
   txtDescription: {fileID: 2887206700857221125}
   txtPrice: {fileID: 2887206702185238484}
   imgPicture: {fileID: 2887206701001624571}
+  sptError: {fileID: 21300000, guid: 977419ffed6538847bc57e2d45164bb1, type: 3}
 --- !u!95 &628232819822940291
 Animator:
   serializedVersion: 4
