@@ -10,18 +10,17 @@ public class PnlListRealtyCtlr : MonoBehaviour
     public List<GameObject> realtyItems;
     public InputField txtInputSearch; 
     private List<Imovel> listRealtyDB = new List<Imovel>();
+    private bool isSearch = false;
     private void OnEnable()
     {
         StartCoroutine(DatabaseManager.Instance.GetRealtyList((List<Imovel> listRealty) =>
         {
             listRealtyDB = new List<Imovel>(listRealty);
-            InsertRealtysInList();
+            StartCoroutine(InsertRealtysInList());
         }));
-
-        
     }
 
-    public void InsertRealtysInList()
+    public IEnumerator InsertRealtysInList()
     {
         ClearItensInContent();
         foreach (Imovel imovel in listRealtyDB)
@@ -42,9 +41,26 @@ public class PnlListRealtyCtlr : MonoBehaviour
             {
                 Destroy(goItem);
             }
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+    public void SearchRealty()
+    {
+        if (txtInputSearch.text != "")
+        {
+            isSearch = true;
+            StartCoroutine(InsertRealtysInList());
         }
     }
 
+    public void ChangeInputTextSearch()
+    {
+        if(txtInputSearch.text == "" && isSearch == true)
+        {
+            isSearch = false;
+            StartCoroutine(InsertRealtysInList());
+        }
+    }
     private void ClearItensInContent()
     {
         foreach(GameObject item in realtyItems)
@@ -52,5 +68,10 @@ public class PnlListRealtyCtlr : MonoBehaviour
             Destroy(item);
         }
         realtyItems.Clear();
+    }
+
+    private void OnDisable()
+    {
+        ClearItensInContent();
     }
 }

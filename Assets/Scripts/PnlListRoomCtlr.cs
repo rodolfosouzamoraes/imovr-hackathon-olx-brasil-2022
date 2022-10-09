@@ -18,13 +18,7 @@ public class PnlListRoomCtlr : MonoBehaviour
         {
             listRoomDB = new List<Comodo>(listRoom);
             ClearItensInContent();
-            foreach (Comodo room in listRoomDB)
-            {
-                GameObject goItem = Instantiate(goItemRoom, transformContentRoom);
-                ItemRoomCtlr itemRealty = goItem.GetComponent<ItemRoomCtlr>();
-                itemRealty.Init(room);
-                roomItems.Add(goItem);
-            }
+            StartCoroutine(InsertRealtysInList());
         }, idRealty));
     }
     private void ClearItensInContent()
@@ -34,5 +28,21 @@ public class PnlListRoomCtlr : MonoBehaviour
             Destroy(item);
         }
         roomItems.Clear();
+    }
+    public IEnumerator InsertRealtysInList()
+    {
+        foreach (Comodo room in listRoomDB)
+        {
+            GameObject goItem = Instantiate(goItemRoom, transformContentRoom);
+            ItemRoomCtlr itemRealty = goItem.GetComponent<ItemRoomCtlr>();
+            itemRealty.Init(room);
+            roomItems.Add(goItem);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    private void OnDisable()
+    {
+        ClearItensInContent();
     }
 }
